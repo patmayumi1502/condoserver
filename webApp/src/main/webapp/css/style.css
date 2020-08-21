@@ -119,3 +119,12 @@ a, button{
 #formCadastroMorador .col-md-6, #formCadastroMorador .col-md-8 , #formCadastroMorador .col-md-4, #formCadastroProduto .col-md-4, #formCadastroProduto .col-md-6, #formCadastroProduto .col-md-8{
 	padding: 0;
 }
+
+
+#footer a{
+	color: #fff;
+}
+
+#footer a:hover{
+	text-decoration: underline ;
+}

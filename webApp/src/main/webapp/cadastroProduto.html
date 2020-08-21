@@ -30,49 +30,50 @@
 				<div class="col-md-8">
 					<ul class="nav nav-pills">
 						<li class="nav-item">
-							<a class="nav-link " href="#">Home</a>
+							<a class="nav-link " href="index.html">Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link " href="#">Produtos</a>
+							<a class="nav-link " href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Meu Perfil</a>
+							<a class="nav-link" href="detalheProduto.html">Meu Perfil</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="#">Como Funciona</a>
-						</li>						
+							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
+						</li>							
 					</ul>
 				</div>
 			</div>
-			<div class="row" id="comoFunciona">
+			<div class="row" id="formCadastroProduto">
 				<div class="col-md-12">
-					<h2>
-						Como Funciona
+					<h2> Cadastro de Produto
 					</h2>
-					<div class="media" id="passos">
-						<img class="mr-3" alt="Bootstrap Media Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-8.jpg" />
-						<div class="media-body">
-							<h5 class="mt-0">
-								Passo 1
-							</h5> Bla bla bla bla bla, Bla bla bla bla bla, Bla bla bla bla bla, Bla bla bla bla bla
-							<div class="media mt-3">
-								 <img class="mr-3" alt="Bootstrap Media Another Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-2.jpg" />
-								<div class="media-body">
-									<h5 class="mt-0">
-										Passo 2
-									</h5> Bibibibibi bibibibibibi, Bibibibibi bibibibibibi, Bibibibibi bibibibibibi, Bibibibibi bibibibibibi
-									<div class="media mt-3">
-										 <img class="mr-3" alt="Bootstrap Media Another Preview" src="https://www.layoutit.com/img/sports-q-c-64-64-2.jpg" />
-										<div class="media-body">
-											<h5 class="mt-0">
-												Passo 3
-											</h5> Bibibibibi bibibibibibi, Bibibibibi bibibibibibi, Bibibibibi bibibibibibi, Bibibibibi bibibibibibi
-										</div>
-									</div>
-								</div>
-							</div>							
+					<form role="form">
+						<div class="form-group col-md-8">							 
+							<input required="true" type="text" class="form-control" id="inputNomeProduto" placeholder="Nome do Produto"/>
 						</div>
-					</div>					
+						<div class="form-group col-md-8">							 
+							<textarea required="true" class="form-control" id="inputDetalheProduto" rows="3" placeholder="Detalhe do Produto"></textarea>
+						</div>
+						<div class="form-group col-md-6">							 
+							<input required="true" type="text" class="form-control" id="inputMarcaProduto" placeholder="Marca do Produto"/>
+						</div>
+						<div class="form-group col-md-4">							 
+							<input required="true" type="text" class="form-control" id="inputValorProduto" placeholder="Valor do Produto"/>
+						</div>						
+						<div class="form-group">							 
+							<label for="exampleImagemProduto">
+								Imagem do Produto
+							</label>
+							<input type="file" class="form-control-file" id="inputImagemProduto" />
+							<p class="help-block">
+								* Verifique a qualidade da imagem.
+							</p>
+						</div>
+						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto">
+							Cadastrar
+						</button>
+					</form>										
 				</div>
 			</div>
 			<div class="row" id="footer">
@@ -81,17 +82,17 @@
 						<div class="col-md-4">
 							<ul class="nav flex-column">
 								<li class="nav-item">
-									<a class="nav-link" href="#">Como Funciona</a>
+									<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Produtos</a>
+									<a class="nav-link" href="produtos.html">Produtos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Meu Perfil</a>
+									<a class="nav-link" href="meuPerfil.html">Meu Perfil</a>
 								</li>
 							</ul>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4" style="padding-top: 9px;">
 							<p>
 								Contato
 							</p>
@@ -102,7 +103,7 @@
 								condoserve@gmail.com
 							</p>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-4" style="padding-top: 9px;">
 							<p>
 								Facebook
 							</p>

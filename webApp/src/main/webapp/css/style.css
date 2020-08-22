@@ -64,6 +64,7 @@
 	margin: 20px 0;
 }
 
+
 a, button{
 	cursor: pointer;
 }
@@ -127,4 +128,8 @@ a, button{
 
 #footer a:hover{
 	text-decoration: underline ;
+}
+
+.badge badge-default{
+	font-size: 15px;
 }

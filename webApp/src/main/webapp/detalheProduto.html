@@ -47,7 +47,7 @@
 			<div class="row" id="detalheProduto">
 				<div class="col-md-12">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-4" id="infoProduto">
 							<h3>
 								Produto abc
 							</h3>
@@ -55,7 +55,7 @@
 								<img alt="Bootstrap Image Preview" class="img-thumbnail" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"> 							
 							</div>							
 							<span class="badge badge-default">R$ 12,00</span>
-							<button type="button" class="btn btn-block btn-outline-primary" onclick="location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';">
+							<button type="button" class="btn btn-block btn-outline-primary" onclick="location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';" >
 								Peça Ja!
 							</button>
 						</div>
@@ -63,80 +63,14 @@
 							<div class="tabbable" id="tabs-440853">
 								<ul class="nav nav-tabs">
 									<li class="nav-item">
-										<a class="nav-link active show" href="#tab1" data-toggle="tab">Detalhes Produto</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="#tab2" data-toggle="tab">Vendedor</a>
+										<a class="nav-link active show"  data-toggle="tab">Detalhes Produto</a>
 									</li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="panel-754431">
-										<p>
-											I'm in Section 1.
-										</p>
-										<dl>
-											<dt>
-												Descrição:
-											</dt>
-											<dd>
-												A description list is perfect for defining terms.
-											</dd>
-											<dt>
-												Marca:
-											</dt>
-											<dd>
-												Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-											</dd>
-											<dd>
-												Donec id elit non mi porta gravida at eget metus.
-											</dd>
-											<dt>
-												Valor:
-											</dt>
-											<dd>
-												Etiam porta sem malesuada magna mollis euismod.
-											</dd>
-											<dt>
-												What?
-											</dt>
-											<dd>
-												Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-											</dd>
+										<dl id="especificacoes">
+
 										</dl> 
-									</div>
-									<div class="tab-pane" id="tab2">
-										<p>
-											Howdy, I'm in Section 2.
-										</p>
-										<dl>
-											<dt>
-												Description lists
-											</dt>
-											<dd>
-												A description list is perfect for defining terms.
-											</dd>
-											<dt>
-												Euismod
-											</dt>
-											<dd>
-												Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-											</dd>
-											<dd>
-												Donec id elit non mi porta gravida at eget metus.
-											</dd>
-											<dt>
-												Malesuada porta
-											</dt>
-											<dd>
-												Etiam porta sem malesuada magna mollis euismod.
-											</dd>
-											<dt>
-												Felis euismod semper eget lacinia
-											</dt>
-											<dd>
-												Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-											</dd>
-										</dl>										
 									</div>
 								</div>
 							</div> 
@@ -160,7 +94,7 @@
 			</div>
 			<div class="row" id="footer">
 				<div class="col-md-12">
-					<div class="row">
+					<div class="row"> 
 						<div class="col-md-4">
 							<ul class="nav flex-column">
 								<li class="nav-item">
@@ -214,5 +148,41 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+	<script>
+	    $(document).ready(function(){
+	    	var url_string = window.location.href;
+	    	var url = new URL(url_string);
+	    	var id = url.searchParams.get("id");
+	    	var urlStr = "https://viacep.com.br/ws/"+id+"/json/";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			conteudo += "<h3>"+data.complemento+"</h3>";
+	    			conteudo += "<div id='imagensDetalhe'><img class='img-thumbnail' src='https://www.layoutit.com/img/sports-q-c-140-140-3.jpg'></div>";
+	    			conteudo += "<span class='badge badge-default'>R$ "+data.gia+"</span>";
+	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';\" >Peça Ja!</button>";
+	    			document.getElementById("infoProduto").innerHTML = conteudo;
+	    			
+	    			var conteudo2 = "";
+	    			conteudo2 += "<dt>Descrição:</dt>";
+	    			conteudo2 += "<dd>"+data.logradouro+"</dd>";
+	    			conteudo2 += "<dt>Marca:</dt>";
+	    			conteudo2 += "<dd>"+data.bairro+"</dd>";
+	    			conteudo2 += "<dt>Valor:</dt>";
+	    			conteudo2 += "<dd>"+data.gia+"</dd>";
+	    			conteudo2 += "<dt>Vendedor:</dt>";
+	    			
+	    			document.getElementById("especificacoes").innerHTML = conteudo2;
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    		}
+	    	});
+	    });
+    </script>
   </body>
 </html>

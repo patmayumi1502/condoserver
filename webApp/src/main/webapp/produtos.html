@@ -12,6 +12,7 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+   
 
   </head>
   <body>
@@ -45,37 +46,7 @@
 				</div>
 			</div>
 			<div class="row" id="listaProduto">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-												<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-					</div>
+				<div class="col-md-12" id="produtos">
 					<div class="row">
 						<div class="col-md-3">
 							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
@@ -230,5 +201,39 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+    <script>
+	    $(document).ready(function(){
+	    	var urlStr = "https://viacep.com.br/ws/01001000/json/";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			alert('aa');
+	    			var conteudo = "";
+	    			var qtd = 0;
+	    			for(var i = 0; i < 8; i++){
+	    				qtd++;
+	    				if(qtd == 1){
+	    					conteudo += "<div class='row'>";
+	    				}
+		    			conteudo += "<div class='col-md-3'>";
+		    			conteudo += "<h3 class='text-center'>"+data.complemento+"</h3>";
+		    			conteudo += "<span class='badge badge-default'>R$ "+data.gia+"</span>";
+		    			conteudo += "</div>";
+	    				if(qtd == 4){
+	    					qtd =0;
+	    					conteudo += "</div>";
+	    				}
+	    			}
+	    			document.getElementById("produtos").innerHTML = conteudo;	
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    		}
+	    	});
+	    });
+    </script>
   </body>
 </html>

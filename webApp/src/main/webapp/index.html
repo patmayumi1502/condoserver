@@ -36,7 +36,7 @@
 							<a class="nav-link" href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="detalheProduto.html?id=01001000">Meu Perfil</a>
+							<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -45,67 +45,8 @@
 				</div>
 			</div>
 			<div class="row" id="produtosDestaque">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-												<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>					
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-												<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-					</div>
+				<div class="col-md-12" id="produtosDestaqueContent">
+					
 				</div>
 			</div>
 			<div class="row" id="quadroAviso">
@@ -175,5 +116,39 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+    <script>
+	    $(document).ready(function(){
+	    	var urlStr = "http://localhost:6060/produto/";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			var qtd = 0;
+	    			for(var i = 0; i < 4; i++){
+	    				qtd++;
+	    				if(qtd == 1){
+	    					conteudo += "<div class='row'>";
+	    				}
+		    			conteudo += "<div class='col-md-3'>";
+		    			conteudo += "<h3 class='text-center'><a href='detalheProduto.html?idProduto="+data[i].codigoProduto+"'>"+data[i].descricaoProduto+"</a></h3>";
+		    			conteudo += "<a href='detalheProduto.html?idProduto="+data[i].codigoProduto+"'><img src=\"https://www.layoutit.com/img/sports-q-c-140-140-3.jpg\" class=\"img-thumbnail\"></a>"
+		    			conteudo += "<span class='badge badge-default'>R$ "+data[i].valorProduto+"</span>";
+		    			conteudo += "</div>";
+	    				if(qtd == 4){
+	    					qtd =0;
+	    					conteudo += "</div>";
+	    				}
+	    			}
+	    			document.getElementById("produtosDestaqueContent").innerHTML = conteudo;	
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    		}
+	    	});
+	    });
+    </script>
   </body>
 </html>

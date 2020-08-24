@@ -1,0 +1,54 @@
+package com.condoserver.moradorservice.controller;
+
+import java.net.URI;
+
+import org.apache.coyote.http11.Http11AprProtocol;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.condoserver.moradorservice.domain.Morador;
+import com.condoserver.moradorservice.repository.MoradorRepository;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@Api(value = "morador")
+
+public class MoradorController {
+
+	@Autowired
+	MoradorRepository moradorRepository;
+
+	@ApiOperation(value = "Listagem de Moradores Cadastrados")
+	@GetMapping(value = "/morador")
+	public Iterable<Morador> all() {
+		return moradorRepository.findAll();
+	}
+
+	@ApiOperation(value = "Lista um morador especifico")
+	@GetMapping(value = "/morador/{moradorId}")
+	public Morador findByidMorador(@PathVariable Integer moradorId) {
+		return moradorRepository.findAllByidMorador(moradorId);
+	}
+
+	@ApiOperation(value = "Cadastra um novo morador")
+	@PostMapping(value = "/morador")
+	public Morador createMorador(@RequestBody Morador morador) {
+		
+		return moradorRepository.save(morador);
+	}	
+	
+}

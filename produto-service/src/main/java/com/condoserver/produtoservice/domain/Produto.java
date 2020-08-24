@@ -1,13 +1,14 @@
 package com.condoserver.produtoservice.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Table(name = "PRODUTOS")
 @Entity
@@ -17,26 +18,29 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CODIGOPRODUTO")
-	@JsonProperty("codigoProduto")
+	@JsonIgnore
 	Integer codigoProduto;
 
 	@Column(name = "DESCRICAOPRODUTO")
-	@JsonProperty("descricaoProduto")
 	String descricaoProduto;
 
 	@Column(name = "DETALHEPRODUTO")
-	@JsonProperty("detalheProduto")
 	String detalheProduto;
 
 	@Column(name = "MARCAPRODUTO")
-	@JsonProperty("marcaProduto")
 	String marcaProduto;
 
 	@Column(name = "VALORPRODUTO")
-	@JsonProperty("valorProduto")
 	double valorProduto;
-
+	
+	@Column(name = "CAMINHOFOTO")
+	String caminhoFoto;
+	
+	@Column(name = "IDMORADOR")
+	Integer idMorador;
+	
 	public Produto() {
 		super();
 	}
@@ -45,17 +49,21 @@ public class Produto implements Serializable {
 	public String toString() {
 		return "Produto [codigoProduto=" + codigoProduto + ", descricaoProduto=" + descricaoProduto
 				+ ", detalheProduto=" + detalheProduto + ", marcaProduto=" + marcaProduto + ", valorProduto="
-				+ valorProduto + "]";
+				+ valorProduto + ", caminhoFoto=" + caminhoFoto + ", idMorador=" + idMorador + "]";
 	}
 
 	public Produto(Integer codigoProduto, String descricaoProduto, String detalheProduto, String marcaProduto,
-			double valorProduto) {
+			double valorProduto, String caminhoFoto, Integer idMorador ) {
 		super();
 		this.codigoProduto = codigoProduto;
 		this.descricaoProduto = descricaoProduto;
 		this.detalheProduto = detalheProduto;
 		this.marcaProduto = marcaProduto;
 		this.valorProduto = valorProduto;
+		this.caminhoFoto = caminhoFoto;
+		this.idMorador = idMorador;
+		
+
 	}
 
 	public Integer getCodigoProduto() {
@@ -93,9 +101,25 @@ public class Produto implements Serializable {
 	public double getValorProduto() {
 		return valorProduto;
 	}
-
+	
 	public void setValorProduto(double valorProduto) {
 		this.valorProduto = valorProduto;
+	}
+
+	public String getCaminhoFoto() {
+		return caminhoFoto;
+	}
+
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
+	}
+
+	public Integer getIdMorador() {
+		return idMorador;
+	}
+
+	public void setIdMorador(Integer idMorador) {
+		this.idMorador = idMorador;
 	}
 
 }

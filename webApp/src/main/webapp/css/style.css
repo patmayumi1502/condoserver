@@ -1,0 +1,141 @@
+
+.container-fluid{
+	padding: 10px;
+}
+
+#top{
+	padding: 25px 0 0 20px;
+}
+
+#produtosDestaque, #detalheProduto, #listaProduto, #comoFunciona, #formCadastroProduto, #formCadastroMorador{
+	padding: 20px;
+}
+
+#produtosDestaque .row, #detalheProduto .row, #listaProduto .row, #comoFunciona .row, #formCadastroProduto .row, #formCadastroMorador .row{
+	padding: 25px 0;
+}
+
+#produtosDestaque .col-md-3, #listaProduto .col-md-3{
+	text-align: center;
+}
+
+#quadroAviso{
+	
+	background: #f7f6f6;
+	text-align:center;
+	padding: 20px 0;
+}
+
+#quadroAviso .col-md-12{
+	text-align:center;
+}
+
+#quadroAviso p{
+	padding:10px 200px;
+}
+
+#footer{
+	
+	background: #000;
+	text-align:center;
+	color: #fff;
+}
+
+#footer .col-md-4 {
+	width:30%;
+	
+}
+
+
+#quadroContato{
+	
+	background: #f7f6f6;
+	text-align:center;
+}
+
+
+#detalheProduto .col-md-4{
+	text-align: center;
+	border: solid 1px #f7f6f6;
+}
+
+#detalheProduto span{
+	font-size: 18px;
+	margin: 20px 0;
+}
+
+
+a, button{
+	cursor: pointer;
+}
+
+#imagensDetalhe img {
+	max-width: 100%;
+	-moz-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+#imagensDetalhe:hover img {
+	-moz-transform: scale(2.4);
+	-webkit-transform: scale(2.4);
+	transform: scale(2.4);
+}
+
+#listaProduto #paginacao, #listaProduto .pagination{
+	width: 50%;
+	margin: 0 auto;
+}
+
+
+#comoFunciona h2 {
+	text-align: center;
+	
+}
+
+#comoFunciona .media {
+	padding-top: 25px;
+}
+
+#passos {
+	width:80%;
+	margin: 0 auto;
+}
+
+
+#formCadastroProduto form, #formCadastroMorador form{
+	width:70%;
+	margin: 0 auto;
+}
+
+#btnCadastrarProduto, #btnCadastrarMorador{
+	float: right;
+}
+
+#formCadastroProduto h2, #formCadastroMorador h2{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#formCadastroMorador .col-md-6, #formCadastroMorador .col-md-8 , #formCadastroMorador .col-md-4, #formCadastroProduto .col-md-4, #formCadastroProduto .col-md-6, #formCadastroProduto .col-md-8{
+	padding: 0;
+}
+
+
+#footer a{
+	color: #fff;
+}
+
+#footer a:hover{
+	text-decoration: underline ;
+}
+
+.badge badge-default{
+	font-size: 15px;
+}
+
+#produtosDestaqueContent a, #produtos a{
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  display: block;
+}

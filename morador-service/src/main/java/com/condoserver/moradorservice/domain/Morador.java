@@ -1,6 +1,5 @@
 package com.condoserver.moradorservice.domain;
 
-<<<<<<< HEAD
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -187,9 +186,5 @@ public class Morador implements Serializable {
 		this.idStatus = idStatus;
 	}
 
-	
-=======
-public class Morador {
 
->>>>>>> d1401c1520869f96233d8378cd822096378ef11c
 }

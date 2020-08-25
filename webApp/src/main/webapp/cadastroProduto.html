@@ -36,7 +36,7 @@
 							<a class="nav-link " href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
+							<a class="nav-link active" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -48,7 +48,7 @@
 				<div class="col-md-12">
 					<h2> Cadastro de Produto
 					</h2>
-					<form role="form">
+					<form role="form" OnSubmit="javascript:EnviarProduto();">
 						<div class="form-group col-md-8">							 
 							<input required="true" type="text" class="form-control" id="nomeProduto" placeholder="Nome do Produto"/>
 						</div>
@@ -89,7 +89,7 @@
 						    </div>
 						  </div>
 						</div>
-						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto" onclick="EnviarProduto2();">
+						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto" >
 							Cadastrar
 						</button>
 					</form>										
@@ -153,55 +153,31 @@
     <script src="js/scripts.js"></script>
     
     <script>
-    	function EnviarProduto(){
-
-    		var descricaoProduto = $("#nomeProduto").val();
-    		var detalheProduto = $("#detalheProduto").val();
-    		var marcaProduto = $("#marcaProduto").val();
-    		var valorProduto = $("#valorProduto").val();
-    		
-    		var xhr = $.ajax({
-    			  url: "http://localhost:6060/produto",
-    			  type: "POST",
-    			  dataType: "json",
-    			  contentType: 'application/json',
-    			  data: {
-    				  "codigoProduto": 6,
-    				  "descricaoProduto": "descricaoProduto",
-    				  "detalheProduto": "detalheProduto",
-    				  "marcaProduto": "marcaProduto",
-    				  "valorProduto": 10.00
-    			  },
-    			  success: function() {
-    				  $('#exampleModalCenter').modal('show');
-    			  },
-    			  error: function(jqXHR, textStatus, errorThrown) {    				  
-    				  console.log(textStatus + jqXHR.responseText);
-    			  }
-    		});
-    		alert(xhr.responseText.headers.Host);
-    	}
     	
-    	function EnviarProduto2(){
+    	function EnviarProduto(){
     		
     		// Exemplo de requisição POST
     		var ajax = new XMLHttpRequest();
 
     		// Seta tipo de requisição: Post e a URL da API
-    		ajax.open("POST", "http://localhost:6060/produto", true);
+    		ajax.open("POST", "http://localhost:6060/produtos", true);
     		ajax.setRequestHeader("Content-type", "application/json");
     		
     		var descricaoProduto = $("#nomeProduto").val();
     		var detalheProduto = $("#detalheProduto").val();
     		var marcaProduto = $("#marcaProduto").val();
     		var valorProduto = $("#valorProduto").val();
+    		var imagemProduto = $("#imagemProduto").val();
+    		var diretorio = imagemProduto.split('\\');
+    		var nomeFoto = diretorio[2];
     		
     		var data = {
-  				  "codigoProduto": 9,
 				  "descricaoProduto": descricaoProduto,
 				  "detalheProduto": detalheProduto,
 				  "marcaProduto": marcaProduto,
-				  "valorProduto": valorProduto
+				  "valorProduto": valorProduto,
+				  "caminhoFoto": nomeFoto,
+				  "idMorador": 1
     		}
 
     		// Seta paramêtros da requisição e envia a requisição

@@ -139,3 +139,18 @@ a, button{
   text-decoration: inherit; /* no underline */
   display: block;
 }
+
+
+#ulMenu{
+	float:left;
+}
+
+#ulLogin{
+	float:right;
+	min-width:200px;
+}
+
+#ulLogin a{
+	color: #000;
+}
+

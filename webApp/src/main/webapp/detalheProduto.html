@@ -36,7 +36,7 @@
 							<a class="nav-link " href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="detalheProduto.html">Meu Perfil</a>
+							<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -95,7 +95,7 @@
 									<a class="nav-link" href="produtos.html">Produtos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="meuPerfil.html">Meu Perfil</a>
+									<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 								</li>
 							</ul>
 						</div>
@@ -145,7 +145,7 @@
 	    	var url_string = window.location.href;
 	    	var url = new URL(url_string);
 	    	var id = url.searchParams.get("idProduto");
-	    	var urlStr = "http://localhost:6060/produto/"+id;
+	    	var urlStr = "http://localhost:6060/produtos/"+id;
 	    	$.ajax({
 	    		url : urlStr,
 	    		type : "get",
@@ -153,7 +153,7 @@
 	    		success : function(data){
 	    			var conteudo = "";
 	    			conteudo += "<h3>"+data.descricaoProduto+"</h3>";
-	    			conteudo += "<div id='imagensDetalhe'><img class='img-thumbnail' src='https://www.layoutit.com/img/sports-q-c-140-140-3.jpg'></div>";
+	    			conteudo += "<div id='imagensDetalhe'><img src=\"images\\"+data.caminhoFoto+"\" class=\"img-thumbnail\"></div>";
 	    			conteudo += "<span class='badge badge-default'>R$ "+data.valorProduto+"</span>";
 	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';\" >Peça Ja!</button>";
 	    			document.getElementById("infoProduto").innerHTML = conteudo;

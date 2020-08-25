@@ -20,7 +20,6 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CODIGOPRODUTO")
-	@JsonIgnore
 	Integer codigoProduto;
 
 	@Column(name = "DESCRICAOPRODUTO")

@@ -32,16 +32,10 @@ public class MoradorController {
 	@Autowired
 	MoradorRepository moradorRepository;
 
-	@ApiOperation(value = "Listagem de Moradores Cadastrados")
-	@GetMapping(value = "/morador")
-	public Iterable<Morador> all() {
-		return moradorRepository.findAll();
-	}
-
 	@ApiOperation(value = "Lista um morador especifico")
-	@GetMapping(value = "/morador/{moradorId}")
-	public Morador findByidMorador(@PathVariable Integer moradorId) {
-		return moradorRepository.findAllByidMorador(moradorId);
+	@GetMapping(value = "/morador/{idMorador}")
+	public Morador findByidMorador(@PathVariable Integer idMorador) {
+		return moradorRepository.findAllByidMorador(idMorador);
 	}
 
 	@ApiOperation(value = "Cadastra um novo morador")

@@ -133,3 +133,24 @@ a, button{
 .badge badge-default{
 	font-size: 15px;
 }
+
+#produtosDestaqueContent a, #produtos a{
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  display: block;
+}
+
+
+#ulMenu{
+	float:left;
+}
+
+#ulLogin{
+	float:right;
+	min-width:200px;
+}
+
+#ulLogin a{
+	color: #000;
+}
+

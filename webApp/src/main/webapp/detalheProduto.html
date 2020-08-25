@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CondoServe - Amigo do seu negócio</title>
+    <title>CondoServe - Seu produto sem sair de casa</title>
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
+    <meta name="description" content="CondoServe">
+    <meta name="author" content="Equipe Caminhapp">
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 				<div class="col-md-4">
 					<div class="page-header">
 						<h1>
-							CondoServe <br><small>Slogan aqui</small>
+							CondoServe <br><small style="font-size:19px;">Seu produto sem sair de casa</small>
 						</h1>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 							<a class="nav-link " href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="detalheProduto.html">Meu Perfil</a>
+							<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -47,96 +47,21 @@
 			<div class="row" id="detalheProduto">
 				<div class="col-md-12">
 					<div class="row">
-						<div class="col-md-4">
-							<h3>
-								Produto abc
-							</h3>
-							<div id="imagensDetalhe">
-								<img alt="Bootstrap Image Preview" class="img-thumbnail" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg"> 							
-							</div>							
-							<span class="badge badge-default">R$ 12,00</span>
-							<button type="button" class="btn btn-block btn-outline-primary" onclick="location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';">
-								Peça Ja!
-							</button>
+						<div class="col-md-4" id="infoProduto">
+
 						</div>
 						<div class="col-md-8">
 							<div class="tabbable" id="tabs-440853">
 								<ul class="nav nav-tabs">
 									<li class="nav-item">
-										<a class="nav-link active show" href="#tab1" data-toggle="tab">Detalhes Produto</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="#tab2" data-toggle="tab">Vendedor</a>
+										<a class="nav-link active show"  data-toggle="tab">Detalhes Produto</a>
 									</li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="panel-754431">
-										<p>
-											I'm in Section 1.
-										</p>
-										<dl>
-											<dt>
-												Descrição:
-											</dt>
-											<dd>
-												A description list is perfect for defining terms.
-											</dd>
-											<dt>
-												Marca:
-											</dt>
-											<dd>
-												Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-											</dd>
-											<dd>
-												Donec id elit non mi porta gravida at eget metus.
-											</dd>
-											<dt>
-												Valor:
-											</dt>
-											<dd>
-												Etiam porta sem malesuada magna mollis euismod.
-											</dd>
-											<dt>
-												What?
-											</dt>
-											<dd>
-												Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-											</dd>
+										<dl id="especificacoes">
+
 										</dl> 
-									</div>
-									<div class="tab-pane" id="tab2">
-										<p>
-											Howdy, I'm in Section 2.
-										</p>
-										<dl>
-											<dt>
-												Description lists
-											</dt>
-											<dd>
-												A description list is perfect for defining terms.
-											</dd>
-											<dt>
-												Euismod
-											</dt>
-											<dd>
-												Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-											</dd>
-											<dd>
-												Donec id elit non mi porta gravida at eget metus.
-											</dd>
-											<dt>
-												Malesuada porta
-											</dt>
-											<dd>
-												Etiam porta sem malesuada magna mollis euismod.
-											</dd>
-											<dt>
-												Felis euismod semper eget lacinia
-											</dt>
-											<dd>
-												Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-											</dd>
-										</dl>										
 									</div>
 								</div>
 							</div> 
@@ -160,7 +85,7 @@
 			</div>
 			<div class="row" id="footer">
 				<div class="col-md-12">
-					<div class="row">
+					<div class="row"> 
 						<div class="col-md-4">
 							<ul class="nav flex-column">
 								<li class="nav-item">
@@ -170,7 +95,7 @@
 									<a class="nav-link" href="produtos.html">Produtos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="meuPerfil.html">Meu Perfil</a>
+									<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 								</li>
 							</ul>
 						</div>
@@ -214,5 +139,43 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+	<script>
+	    $(document).ready(function(){
+	    	var url_string = window.location.href;
+	    	var url = new URL(url_string);
+	    	var id = url.searchParams.get("idProduto");
+	    	var urlStr = "http://localhost:6060/produtos/"+id;
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			conteudo += "<h3>"+data.descricaoProduto+"</h3>";
+	    			conteudo += "<div id='imagensDetalhe'><img src=\"images\\"+data.caminhoFoto+"\" class=\"img-thumbnail\"></div>";
+	    			conteudo += "<span class='badge badge-default'>R$ "+data.valorProduto+"</span>";
+	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';\" >Peça Ja!</button>";
+	    			document.getElementById("infoProduto").innerHTML = conteudo;
+	    			
+	    			var conteudo2 = "";
+	    			conteudo2 += "<dt>Nome:</dt>";
+	    			conteudo2 += "<dd>"+data.descricaoProduto+"</dd>";	    			
+	    			conteudo2 += "<dt>Detalhes:</dt>";
+	    			conteudo2 += "<dd>"+data.detalheProduto+"</dd>";
+	    			conteudo2 += "<dt>Marca:</dt>";
+	    			conteudo2 += "<dd>"+data.marcaProduto+"</dd>";
+	    			conteudo2 += "<dt>Valor:</dt>";
+	    			conteudo2 += "<dd>"+data.valorProduto+"</dd>";
+	    			conteudo2 += "<dt>Vendedor:</dt>";
+	    			
+	    			document.getElementById("especificacoes").innerHTML = conteudo2;
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    		}
+	    	});
+	    });
+    </script>
   </body>
 </html>

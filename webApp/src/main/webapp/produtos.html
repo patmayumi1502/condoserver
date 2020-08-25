@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CondoServe - Amigo do seu negócio</title>
+    <title>CondoServe - Seu produto sem sair de casa</title>
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
+    <meta name="description" content="CondoServe">
+    <meta name="author" content="Equipe Caminhapp">
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+   
 
   </head>
   <body>
@@ -23,7 +24,7 @@
 				<div class="col-md-4">
 					<div class="page-header">
 						<h1>
-							CondoServe <br><small>Slogan aqui</small>
+							CondoServe <br><small style="font-size:19px;">Seu produto sem sair de casa</small>
 						</h1>
 					</div>
 				</div>
@@ -36,7 +37,7 @@
 							<a class="nav-link active" href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="detalheProduto.html">Meu Perfil</a>
+							<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -45,37 +46,7 @@
 				</div>
 			</div>
 			<div class="row" id="listaProduto">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>						
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-						<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-												<div class="col-md-3">
-							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
-							<h3 class="text-center">
-								Nome do produto
-							</h3>							
-							<span class="badge badge-default">R$ 12,00</span>
-						</div>
-					</div>
+				<div class="col-md-12" id="produtos">
 					<div class="row">
 						<div class="col-md-3">
 							<img alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" class="img-thumbnail">
@@ -186,7 +157,7 @@
 									<a class="nav-link" href="produtos.html">Produtos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="meuPerfil.html">Meu Perfil</a>
+									<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 								</li>
 							</ul>
 						</div>
@@ -230,5 +201,44 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+    <script>
+	    $(document).ready(function(){
+	    	var urlStr = "http://localhost:6060/produtos/";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			var qtd = 0;
+	    			if(data.length == 0){
+	    				document.getElementById("produtos").innerHTML = "<h3>Nenhum produto encontrado.</h3>";
+	    			}
+	    			
+	    			for(var i = 0; i < data.length; i++){
+	    				qtd++;
+	    				if(qtd == 1){
+	    					conteudo += "<div class='row'>";
+	    				}
+		    			conteudo += "<div class='col-md-3'>";
+		    			conteudo += "<h3 class='text-center'><a style='font-size:25px;' href='detalheProduto.html?idProduto="+data[i].codigoProduto+"'>"+data[i].descricaoProduto+"</a></h3>";
+		    			conteudo += "<a href='detalheProduto.html?idProduto="+data[i].codigoProduto+"'><img style=\"max-width: 220px; max-height:200px;\" src=\"images\\"+data[i].caminhoFoto+"\" class=\"img-thumbnail\"></a>"
+		    			conteudo += "<span class='badge badge-default' style='font-size:16px; margin-top: 20px;'>R$ "+data[i].valorProduto+"</span>";
+		    			conteudo += "</div>";
+	    				if(qtd == 4){
+	    					qtd =0;
+	    					conteudo += "</div>";
+	    				}
+	    			}
+	    			document.getElementById("produtos").innerHTML = conteudo;	
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    			document.getElementById("produtos").innerHTML = "<h3>Nenhum produto encontrado.</h3>";
+	    		}
+	    	});
+	    });
+    </script>
   </body>
 </html>

@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>CondoServe - Amigo do seu negócio</title>
+    <title>CondoServe - Seu produto sem sair de casa</title>
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
+    <meta name="description" content="CondoServe">
+    <meta name="author" content="Equipe Caminhapp">
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 				<div class="col-md-4">
 					<div class="page-header">
 						<h1>
-							CondoServe <br><small>Slogan aqui</small>
+							CondoServe <br><small style="font-size:19px;">Seu produto sem sair de casa</small>
 						</h1>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 							<a class="nav-link " href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="detalheProduto.html">Meu Perfil</a>
+							<a class="nav-link active" href="cadastroProduto.html">Cadastrar Produto</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
@@ -48,29 +48,48 @@
 				<div class="col-md-12">
 					<h2> Cadastro de Produto
 					</h2>
-					<form role="form">
+					<form role="form" OnSubmit="javascript:EnviarProduto();">
 						<div class="form-group col-md-8">							 
-							<input required="true" type="text" class="form-control" id="inputNomeProduto" placeholder="Nome do Produto"/>
+							<input required="true" type="text" class="form-control" id="nomeProduto" placeholder="Nome do Produto"/>
 						</div>
 						<div class="form-group col-md-8">							 
-							<textarea required="true" class="form-control" id="inputDetalheProduto" rows="3" placeholder="Detalhe do Produto"></textarea>
+							<textarea required="true" class="form-control" id="detalheProduto" rows="3" placeholder="Detalhe do Produto"></textarea>
 						</div>
 						<div class="form-group col-md-6">							 
-							<input required="true" type="text" class="form-control" id="inputMarcaProduto" placeholder="Marca do Produto"/>
+							<input required="true" type="text" class="form-control" id="marcaProduto" placeholder="Marca do Produto"/>
 						</div>
 						<div class="form-group col-md-4">							 
-							<input required="true" type="text" class="form-control" id="inputValorProduto" placeholder="Valor do Produto"/>
+							<input required="true" type="text" class="form-control" id="valorProduto" placeholder="Valor do Produto"/>
 						</div>						
 						<div class="form-group">							 
-							<label for="exampleImagemProduto">
+							<label for="imagemProduto">
 								Imagem do Produto
 							</label>
-							<input type="file" class="form-control-file" id="inputImagemProduto" />
+							<input type="file" class="form-control-file" id="imagemProduto" />
 							<p class="help-block">
 								* Verifique a qualidade da imagem.
 							</p>
 						</div>
-						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto">
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLongTitle">Cadastro Produto</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						        Produto cadastro com sucesso!
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-primary">Ok</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto" >
 							Cadastrar
 						</button>
 					</form>										
@@ -88,7 +107,7 @@
 									<a class="nav-link" href="produtos.html">Produtos</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="meuPerfil.html">Meu Perfil</a>
+									<a class="nav-link" href="cadastroProduto.html">Cadastrar Produto</a>
 								</li>
 							</ul>
 						</div>
@@ -132,5 +151,50 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+    
+    <script>
+    	
+    	function EnviarProduto(){
+    		
+    		// Exemplo de requisição POST
+    		var ajax = new XMLHttpRequest();
+
+    		// Seta tipo de requisição: Post e a URL da API
+    		ajax.open("POST", "http://localhost:6060/produtos", true);
+    		ajax.setRequestHeader("Content-type", "application/json");
+    		
+    		var descricaoProduto = $("#nomeProduto").val();
+    		var detalheProduto = $("#detalheProduto").val();
+    		var marcaProduto = $("#marcaProduto").val();
+    		var valorProduto = $("#valorProduto").val();
+    		var imagemProduto = $("#imagemProduto").val();
+    		var diretorio = imagemProduto.split('\\');
+    		var nomeFoto = diretorio[2];
+    		
+    		var data = {
+				  "descricaoProduto": descricaoProduto,
+				  "detalheProduto": detalheProduto,
+				  "marcaProduto": marcaProduto,
+				  "valorProduto": valorProduto,
+				  "caminhoFoto": nomeFoto,
+				  "idMorador": 1
+    		}
+
+    		// Seta paramêtros da requisição e envia a requisição
+    		ajax.send(JSON.stringify(data));
+
+    		// Cria um evento para receber o retorno.
+    		ajax.onreadystatechange = function() {
+    		  
+    		  // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+    			if (ajax.readyState == 4 && ajax.status == 200) {
+    		    
+    				var data = ajax.responseText;
+    				
+    				$('#exampleModalCenter').modal('show');
+    			}
+    		}    		
+    	}
+    </script>
   </body>
 </html>

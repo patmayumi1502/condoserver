@@ -28,9 +28,9 @@ public class CondominioController {
 	CondominioRepository condominioRepository;
 
 	@ApiOperation(value = "Lista um condominio especifico")
-	@GetMapping(value = "/condominios/{idCondominio}")
-	public Condominio findByidCondominio(@PathVariable Integer idCondominio) {
-		return condominioRepository.findAllByidCondominio(idCondominio);
+	@GetMapping(value = "/condominios")
+	public Iterable<Condominio> findByidCondominio() {
+		return condominioRepository.findAll();
 	}
 
 	@ApiOperation(value = "Cadastra um novo condominio")

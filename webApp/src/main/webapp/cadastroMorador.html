@@ -62,6 +62,12 @@
 							<input required="true" type="text" class="form-control" id="endereco" placeholder="Endereço"/>
 						</div>
 						<div class="form-group col-md-4">							 
+							<label for="condominios">Condomínio:</label>
+							
+							<select name="condominios" id="condominios" class="form-control">
+							</select>
+						</div>
+						<div class="form-group col-md-4">							 
 							<input required="true" type="text" class="form-control" id="telefone1"  placeholder="Celular"/>
 						</div>
 						<div class="form-group col-md-4">							 
@@ -145,6 +151,30 @@
     <script src="js/scripts.js"></script>
     
     <script>
+	    $(document).ready(function(){
+	    	var urlStr = "http://localhost:6061/condominios";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			var itens = [];
+	    			for(var i = 0; i < data.length; i++){
+	    				var nome = data[i].nomeCondominio;
+	    				var idCondo = data[i].idCondominio;
+	    				conteudo += "<option value='"+idCondo+"'>" + nome + "</option>";
+	    				
+	    			}
+	    			document.getElementById("condominios").innerHTML = conteudo;
+	    
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    			
+	    		}
+	    	});
+	    });
     	
     	function EnviarMorador(){
     		
@@ -161,6 +191,7 @@
     		var telefoneContato1 = $("#telefone1").val();
     		var telefoneContato2 = $("#Telefone").val();
     		var email = $("#email").val();
+    		var idCondo =  $("#condominios").val();
     		
     		var data = {
   				  "email": email,
@@ -170,7 +201,7 @@
   				  "telefoneContato1": telefoneContato1,
   				  "telefoneContato2": telefoneContato2,
   				  "codigoComprovanteEnd": 1,
-  				  "idCondominio": 1, 
+  				  "idCondominio": idCondo, 
   				  "idStatus": "A"
       		}
 

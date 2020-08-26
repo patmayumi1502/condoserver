@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.apache.coyote.http11.Http11AprProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,13 @@ public class MoradorController {
 	MoradorRepository moradorRepository;
 
 	@ApiOperation(value = "Lista um morador especifico")
-	@GetMapping(value = "/morador/{idMorador}")
+	@GetMapping(value = "/moradores/{idMorador}")
 	public Morador findByidMorador(@PathVariable Integer idMorador) {
 		return moradorRepository.findAllByidMorador(idMorador);
 	}
 
 	@ApiOperation(value = "Cadastra um novo morador")
-	@PostMapping(value = "/morador")
+	@PostMapping(value = "/moradores")
 	public Morador createMorador(@RequestBody Morador morador) {
 		
 		return moradorRepository.save(morador);

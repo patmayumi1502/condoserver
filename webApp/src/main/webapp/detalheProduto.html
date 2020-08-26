@@ -65,9 +65,9 @@
 									</div>
 								</div>
 							</div> 
-							<button type="button" class="btn btn-success"  onclick="location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';">
-								Fale com o vendedor
-							</button>
+							<div id="faleComVendedor">
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -141,41 +141,77 @@
     <script src="js/scripts.js"></script>
     
 	<script>
+		var idMorador;
+		var conteudo2 = "";
 	    $(document).ready(function(){
 	    	var url_string = window.location.href;
 	    	var url = new URL(url_string);
 	    	var id = url.searchParams.get("idProduto");
 	    	var urlStr = "http://localhost:6060/produtos/"+id;
+			var nomeProduto = "";
+			var conteudo = "";
 	    	$.ajax({
 	    		url : urlStr,
 	    		type : "get",
 	    		dataType : "json",
 	    		success : function(data){
-	    			var conteudo = "";
+	    			
 	    			conteudo += "<h3>"+data.descricaoProduto+"</h3>";
 	    			conteudo += "<div id='imagensDetalhe'><img src=\"images\\"+data.caminhoFoto+"\" class=\"img-thumbnail\"></div>";
 	    			conteudo += "<span class='badge badge-default'>R$ "+data.valorProduto+"</span>";
-	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='https://api.whatsapp.com/send?phone=5511953685481&text=Olá%20tenho%20interesse%20no%20produto.';\" >Peça Ja!</button>";
-	    			document.getElementById("infoProduto").innerHTML = conteudo;
+
 	    			
-	    			var conteudo2 = "";
+	    			
 	    			conteudo2 += "<dt>Nome:</dt>";
-	    			conteudo2 += "<dd>"+data.descricaoProduto+"</dd>";	    			
+	    			conteudo2 += "<dd>"+data.descricaoProduto+"</dd>";	
+	    			nomeProduto = data.descricaoProduto;
 	    			conteudo2 += "<dt>Detalhes:</dt>";
 	    			conteudo2 += "<dd>"+data.detalheProduto+"</dd>";
 	    			conteudo2 += "<dt>Marca:</dt>";
 	    			conteudo2 += "<dd>"+data.marcaProduto+"</dd>";
 	    			conteudo2 += "<dt>Valor:</dt>";
 	    			conteudo2 += "<dd>"+data.valorProduto+"</dd>";
-	    			conteudo2 += "<dt>Vendedor:</dt>";
+	    			idMorador = data.idMorador;
 	    			
-	    			document.getElementById("especificacoes").innerHTML = conteudo2;
+	    	    	var urlStr2 = "http://localhost:6061/moradores/"+ idMorador;
+	    	    	var conteudo3 = "";
+	    	    	$.ajax({
+	    	    		url : urlStr2,
+	    	    		type : "get",
+	    	    		dataType : "json",
+	    	    		success : function(data){
+	    	    			
+	    	    			conteudo2 += "<dt>Vendedor:</dt>";
+	    	    			conteudo2 += "<dd>"+data.nomeCliente+"</dd>";	
+	    	    			conteudo2 += "<dt>Contato:</dt>";
+	    	    			conteudo2 += "<dd>"+data.telefoneContato1+"</dd>";
+	    	    			
+	    	    			document.getElementById("especificacoes").innerHTML = conteudo2;
+	    	    			var tel1 = data.telefoneContato1;
+	    	    			var numeroCel = tel1.replace(/\D+/g, '');
+	    	    			var link = "https://api.whatsapp.com/send?phone=55"+numeroCel+"&text=Olá%20tenho%20interesse%20no%20produto%20"+nomeProduto+".";
+	    	    			conteudo3 += "<button type='button' class='btn btn-success'  onclick=\"location.href='"+link+"';\">";
+	    	    			conteudo3 += "Fale com o vendedor";
+	    	    			conteudo3 += "</button>";
+	    	    			document.getElementById("faleComVendedor").innerHTML = conteudo3;
+	    	    			
+	    	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='"+link+"';\" >Peça Ja!</button>";
+	    	    			document.getElementById("infoProduto").innerHTML = conteudo;
+	    	    		},
+	    	    		error: function(erro){
+	    	    			console.log(erro);
+	    	    		}
+	    	    	});
+	    			
 	    		},
 	    		error: function(erro){
 	    			console.log(erro);
 	    		}
 	    	});
+	    	
+
 	    });
+
     </script>
   </body>
 </html>

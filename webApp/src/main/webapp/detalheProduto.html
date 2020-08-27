@@ -190,12 +190,12 @@
 	    	    			var tel1 = data.telefoneContato1;
 	    	    			var numeroCel = tel1.replace(/\D+/g, '');
 	    	    			var link = "https://api.whatsapp.com/send?phone=55"+numeroCel+"&text=Olá%20tenho%20interesse%20no%20produto%20"+nomeProduto+".";
-	    	    			conteudo3 += "<button type='button' class='btn btn-success'  onclick=\"location.href='"+link+"';\">";
+	    	    			conteudo3 += "<button type='button' class='btn btn-success'  onclick=\"window.open('"+link+"');\">";
 	    	    			conteudo3 += "Fale com o vendedor";
 	    	    			conteudo3 += "</button>";
 	    	    			document.getElementById("faleComVendedor").innerHTML = conteudo3;
 	    	    			
-	    	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"location.href='"+link+"';\" >Peça Ja!</button>";
+	    	    			conteudo += "<button type='button' class='btn btn-block btn-outline-primary' onclick=\"window.open('"+link+"');\" >Peça Ja!</button>";
 	    	    			document.getElementById("infoProduto").innerHTML = conteudo;
 	    	    		},
 	    	    		error: function(erro){

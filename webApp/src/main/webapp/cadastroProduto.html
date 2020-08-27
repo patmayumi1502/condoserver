@@ -60,7 +60,13 @@
 						</div>
 						<div class="form-group col-md-4">							 
 							<input required="true" type="text" class="form-control" id="valorProduto" placeholder="Valor do Produto"/>
-						</div>						
+						</div>	
+						<div class="form-group col-md-4">							 
+							<label for="morador">Morador:</label>
+							
+							<select name="morador" id="morador" class="form-control">
+							</select>
+						</div>					
 						<div class="form-group">							 
 							<label for="imagemProduto">
 								Imagem do Produto
@@ -69,25 +75,6 @@
 							<p class="help-block">
 								* Verifique a qualidade da imagem.
 							</p>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						  <div class="modal-dialog modal-dialog-centered" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalLongTitle">Cadastro Produto</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        Produto cadastro com sucesso!
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-primary">Ok</button>
-						      </div>
-						    </div>
-						  </div>
 						</div>
 						<button type="submit" class="btn btn-primary" id="btnCadastrarProduto" >
 							Cadastrar
@@ -153,6 +140,31 @@
     <script src="js/scripts.js"></script>
     
     <script>
+    
+	    $(document).ready(function(){
+	    	var urlStr = "http://localhost:6061/moradores";
+	    	$.ajax({
+	    		url : urlStr,
+	    		type : "get",
+	    		dataType : "json",
+	    		success : function(data){
+	    			var conteudo = "";
+	    			var itens = [];
+	    			for(var i = 0; i < data.length; i++){
+	    				var nome = data[i].nomeCliente;
+	    				var idMorador = data[i].idMorador;
+	    				conteudo += "<option value='"+idMorador+"'>" + nome + "</option>";
+	    				
+	    			}
+	    			document.getElementById("morador").innerHTML = conteudo;
+	    
+	    		},
+	    		error: function(erro){
+	    			console.log(erro);
+	    			
+	    		}
+	    	});
+	    });
     	
     	function EnviarProduto(){
     		
@@ -170,6 +182,7 @@
     		var imagemProduto = $("#imagemProduto").val();
     		var diretorio = imagemProduto.split('\\');
     		var nomeFoto = diretorio[2];
+    		var idMorador =  $("#morador").val();
     		
     		var data = {
 				  "descricaoProduto": descricaoProduto,
@@ -177,7 +190,7 @@
 				  "marcaProduto": marcaProduto,
 				  "valorProduto": valorProduto,
 				  "caminhoFoto": nomeFoto,
-				  "idMorador": 1
+				  "idMorador": idMorador
     		}
 
     		// Seta paramêtros da requisição e envia a requisição

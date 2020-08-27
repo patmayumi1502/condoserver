@@ -76,11 +76,7 @@ a, button{
 	transition: all 0.3s;
 }
 
-#imagensDetalhe:hover img {
-	-moz-transform: scale(2.4);
-	-webkit-transform: scale(2.4);
-	transform: scale(2.4);
-}
+
 
 #listaProduto #paginacao, #listaProduto .pagination{
 	width: 50%;

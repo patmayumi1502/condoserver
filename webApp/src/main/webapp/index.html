@@ -132,8 +132,9 @@
 	    		success : function(data){
 	    			var conteudo = "";
 	    			var itens = [];
-	    			for(var qtd = 4; qtd > 0; i--){
-	    				var i = getRandomInt(1, 6);
+	    			var i;
+	    			for(var qtd = 4; qtd > 0; qtd--){
+	    				i = getRandomInt(1, 6);
 	    				while(itens.includes(i)){
 	    					i = getRandomInt(1, 6);
 	    				}
@@ -149,7 +150,6 @@
 	    				if(qtd == 1){
 	    					conteudo += "</div>";
 	    				}
-	    				qtd--;
 	    			}
 	    			document.getElementById("produtosDestaqueContent").innerHTML = conteudo;	
 	    		},

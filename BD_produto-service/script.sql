@@ -2,7 +2,7 @@
 create database condoserver;
 
 -- drop table produtos;
-
+use condoServer;
 -- criando tabela produtos
 create table produtos(
 codigoProduto int not null primary key auto_increment,
@@ -16,6 +16,8 @@ idMorador int);
 -- consulta tabela produtos
 select *
 from produtos;
+
+delete from produtos where codigoProduto = 7;
 
 -- truncate table produtos
 
@@ -35,3 +37,47 @@ update produtos
 set caminhoFoto = 'foto2.jpg',
 idMorador = 1
 where codigoProduto = 1;
+
+
+
+-- criando instacia BD
+create database morador;
+
+use morador;
+CREATE TABLE condominio (
+idCondominio int NOT NULL AUTO_INCREMENT,
+nomeCondominio varchar(50) DEFAULT NULL,
+enderecoCondominio varchar(50) DEFAULT NULL,
+cep varchar(10) DEFAULT NULL,
+cidade varchar(30) DEFAULT NULL,
+estado varchar(30) DEFAULT NULL,
+PRIMARY KEY (idCondominio)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE morador (
+idMorador int NOT NULL AUTO_INCREMENT,
+idCondominio int DEFAULT NULL,
+email varchar(50) DEFAULT NULL,
+nomeCliente varchar(50) DEFAULT NULL,
+dataNascimento date DEFAULT NULL,
+enderecoCliente varchar(50) DEFAULT NULL,
+telefoneContato1 varchar(14) DEFAULT NULL,
+telefoneContato2 varchar(14) DEFAULT NULL,
+timestampCadastro timestamp NULL DEFAULT NULL,
+codigoComprovanteEnd int DEFAULT NULL,
+idStatus char(1) DEFAULT NULL,
+PRIMARY KEY (idMorador)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE login (
+idCliente int NOT NULL,
+senhaCliente varchar(50) NOT NULL,
+timestampCadastro timestamp NULL DEFAULT NULL,
+PRIMARY KEY (idCliente)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+select * from morador;
+select * from condominio;
+
+truncate table morador;

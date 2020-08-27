@@ -42,6 +42,11 @@
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
 						</li>							
 					</ul>
+					 <ul class="nav nav-pills" id="ulLogin">
+						<li id="cadastrese"></li>
+						<li> | </li>
+						<li id="loginESair"></li>
+			         </ul>
 				</div>
 			</div>
 			<div class="row" id="formCadastroProduto">
@@ -61,12 +66,13 @@
 						<div class="form-group col-md-4">							 
 							<input required="true" type="text" class="form-control" id="valorProduto" placeholder="Valor do Produto"/>
 						</div>	
+						<!-- 
 						<div class="form-group col-md-4">							 
 							<label for="morador">Morador:</label>
 							
 							<select name="morador" id="morador" class="form-control">
 							</select>
-						</div>					
+						</div>	 -->				
 						<div class="form-group">							 
 							<label for="imagemProduto">
 								Imagem do Produto
@@ -142,6 +148,8 @@
     <script>
     
 	    $(document).ready(function(){
+	    	checkIfLoggedIn();
+	    	onLoad();
 	    	var urlStr = "http://localhost:6061/moradores";
 	    	$.ajax({
 	    		url : urlStr,
@@ -182,7 +190,6 @@
     		var imagemProduto = $("#imagemProduto").val();
     		var diretorio = imagemProduto.split('\\');
     		var nomeFoto = diretorio[2];
-    		var idMorador =  $("#morador").val();
     		
     		var data = {
 				  "descricaoProduto": descricaoProduto,
@@ -190,7 +197,7 @@
 				  "marcaProduto": marcaProduto,
 				  "valorProduto": valorProduto,
 				  "caminhoFoto": nomeFoto,
-				  "idMorador": idMorador
+				  "idMorador": 5
     		}
 
     		// Seta paramêtros da requisição e envia a requisição
@@ -208,6 +215,45 @@
     			}
     		}    		
     	}
+
+    	function checkIfLoggedIn()
+    	{
+    	  if(sessionStorage.getItem('myUserEntity') == null){
+    	    //Redirect to login page, no user entity available in sessionStorage
+	    	  var conteudo = "<a href='login.html';> Login</a>";
+	    	  document.getElementById("loginESair").innerHTML = conteudo;
+	    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+	    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+    	    
+    	  } else {
+    	    //User already logged in
+    	    var userEntity = {};
+    	    userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    	    var conteudo = "<a href='javascript:signOut();'> Sair</a>";
+    	    document.getElementById("loginESair").innerHTML = conteudo;
+    	    var conteudo2 = "<a>"+userEntity.Nome+"</a>";
+    	    document.getElementById("cadastrese").innerHTML = conteudo2;
+    	  }
+    	}
+    	
+        function onLoad() {
+            gapi.load('auth2', function() {
+              gapi.auth2.init();
+            });
+        }
+        
+	    function signOut(){
+	        var auth2 = gapi.auth2.getAuthInstance();
+	        auth2.signOut().then(function () {
+		          console.log('User signed out.');
+		    	  var conteudo = "<a href='login.html';> Login</a>";
+		    	  document.getElementById("loginESair").innerHTML = conteudo;
+		    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+		    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+		    	  sessionStorage.clear();
+	        });	        
+	        
+	    }
     </script>
   </body>
 </html>

@@ -12,6 +12,10 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    
+    <meta name="google-signin-client_id" content="764680588695-8mpl4f0rqa1m4i68nih3bb3gq571m8q6.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
   </head>
   <body>
@@ -159,7 +163,7 @@
     <script>
 	    $(document).ready(function(){
 	    	checkIfLoggedIn();
-	    	onLoad();
+
 	    	var urlStr = "http://localhost:6061/condominios";
 	    	$.ajax({
 	    		url : urlStr,
@@ -246,6 +250,7 @@
     	    document.getElementById("loginESair").innerHTML = conteudo;
     	    var conteudo2 = "<a>"+userEntity.Nome+"</a>";
     	    document.getElementById("cadastrese").innerHTML = conteudo2;
+	    	
     	  }
     	}
     	
@@ -256,6 +261,7 @@
           }  
         
 	    function signOut(){
+	    	onLoad();
 	        var auth2 = gapi.auth2.getAuthInstance();
 	        auth2.signOut().then(function () {
 		          console.log('User signed out.');

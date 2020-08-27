@@ -31,7 +31,8 @@
 }
 
 #quadroAviso p{
-	padding:10px 200px;
+	width:50%;
+	margin: 0 auto;
 }
 
 #footer{

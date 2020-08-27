@@ -42,6 +42,11 @@
 							<a class="nav-link" href="comoFunciona.html">Como Funciona</a>
 						</li>						
 					</ul>
+					 <ul class="nav nav-pills" id="ulLogin">
+						<li id="cadastrese"></li>
+						<li> | </li>
+						<li id="loginESair"></li>
+			         </ul>
 				</div>
 			</div>
 			<div class="row" id="formCadastroMorador">
@@ -153,6 +158,8 @@
     
     <script>
 	    $(document).ready(function(){
+	    	checkIfLoggedIn();
+	    	onLoad();
 	    	var urlStr = "http://localhost:6061/condominios";
 	    	$.ajax({
 	    		url : urlStr,
@@ -217,12 +224,49 @@
     		    
     				var data = ajax.responseText;
     			
-
+    				window.location.href = "http://localhost:8080/app/login.html";
     			} 
     		} 
 
     	}
-    
+    	function checkIfLoggedIn()
+    	{
+    	  if(sessionStorage.getItem('myUserEntity') == null){
+    	    //Redirect to login page, no user entity available in sessionStorage
+	    	  var conteudo = "<a href='login.html';> Login</a>";
+	    	  document.getElementById("loginESair").innerHTML = conteudo;
+	    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+	    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+    	    
+    	  } else {
+    	    //User already logged in
+    	    var userEntity = {};
+    	    userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    	    var conteudo = "<a href='javascript:signOut();'> Sair</a>";
+    	    document.getElementById("loginESair").innerHTML = conteudo;
+    	    var conteudo2 = "<a>"+userEntity.Nome+"</a>";
+    	    document.getElementById("cadastrese").innerHTML = conteudo2;
+    	  }
+    	}
+    	
+        function onLoad() {
+            gapi.load('auth2', function() {
+              gapi.auth2.init();
+            });
+          }  
+        
+	    function signOut(){
+	        var auth2 = gapi.auth2.getAuthInstance();
+	        auth2.signOut().then(function () {
+		          console.log('User signed out.');
+		    	  var conteudo = "<a href='login.html';> Login</a>";
+		    	  document.getElementById("loginESair").innerHTML = conteudo;
+		    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+		    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+		    	  sessionStorage.clear();
+	        });	        
+	        
+	    }
     </script>
   </body>
 </html>

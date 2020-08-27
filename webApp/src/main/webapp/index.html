@@ -12,6 +12,10 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    
+    <meta name="google-signin-client_id" content="764680588695-8mpl4f0rqa1m4i68nih3bb3gq571m8q6.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
   </head>
   <body>
@@ -32,7 +36,7 @@
 						<li class="nav-item">
 							<a class="nav-link active" href="index.html">Home</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item"  >
 							<a class="nav-link" href="produtos.html">Produtos</a>
 						</li>
 						<li class="nav-item">
@@ -43,9 +47,9 @@
 						</li>						
 					</ul>
 					 <ul class="nav nav-pills" id="ulLogin">
-						<li><a href="cadastroMorador.html">Cadastre-se </a></li>
+						<li id="cadastrese"></li>
 						<li> | </li>
-						<li><a href="#"> Login</a></li>
+						<li id="loginESair"></li>
 			         </ul>
 				</div>
 			</div>
@@ -124,7 +128,57 @@
     
     <script>
 	    $(document).ready(function(){
-	    	var urlStr = "http://localhost:6060/produtos/";
+	    
+	    	checkIfLoggedIn();
+	    	onLoad();
+	    });
+	    
+	    function getRandomInt(min, max) {
+	        return Math.floor(Math.random() * (max - min + 1)) + min;
+	    }
+	    
+	    function signOut(){
+	        var auth2 = gapi.auth2.getAuthInstance();
+	        auth2.signOut().then(function () {
+		          console.log('User signed out.');
+		    	  var conteudo = "<a href='login.html';> Login</a>";
+		    	  document.getElementById("loginESair").innerHTML = conteudo;
+		    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+		    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+		    	  sessionStorage.clear();
+	        });	        
+	        
+	    }
+
+    	function checkIfLoggedIn()
+    	{
+    	  if(sessionStorage.getItem('myUserEntity') == null){
+    	    //Redirect to login page, no user entity available in sessionStorage
+	    	  var conteudo = "<a href='login.html';> Login</a>";
+	    	  document.getElementById("loginESair").innerHTML = conteudo;
+	    	  var conteudo2 = "<a href='cadastroMorador.html';>Cadastre-se</a>";
+	    	  document.getElementById("cadastrese").innerHTML = conteudo2;
+    	    
+    	  } else {
+    	    //User already logged in
+    	    var userEntity = {};
+    	    userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+    	    var conteudo = "<a href='javascript:signOut();'> Sair</a>";
+    	    document.getElementById("loginESair").innerHTML = conteudo;
+    	    var conteudo2 = "<a>"+userEntity.Nome+"</a>";
+    	    document.getElementById("cadastrese").innerHTML = conteudo2;
+    	    produtos();
+    	  }
+    	}
+    	
+        function onLoad() {
+            gapi.load('auth2', function() {
+              gapi.auth2.init();
+            });
+          }
+        
+        function produtos(){
+        	var urlStr = "http://localhost:6060/produtos/";
 	    	$.ajax({
 	    		url : urlStr,
 	    		type : "get",
@@ -158,11 +212,8 @@
 	    			
 	    		}
 	    	});
-	    });
-	    
-	    function getRandomInt(min, max) {
-	        return Math.floor(Math.random() * (max - min + 1)) + min;
-	    }
+        }
     </script>
+	
   </body>
 </html>
